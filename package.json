@@ -1,0 +1,31 @@
+{
+  "name": "block-monster",
+  "version": "1.0.0",
+  "description": "hackeru homwork exc, 03.02.22",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node .",
+    "dev": "npx nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/razdu/block-monster.git"
+  },
+  "dependencies": {
+    "express":"4.17.2",
+    "mongoose":"6.2.0",
+    "axios":"0.25.0"
+  },
+  "devDependencies": {
+    "nodemon":"2.0.15",
+    "prettier":"2.5.1" 
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/razdu/block-monster/issues"
+  },
+  "homepage": "https://github.com/razdu/block-monster#readme"
+}

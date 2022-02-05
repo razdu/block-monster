@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Block Monster</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <select name="movies" id="movies-list">
+      <option selected>Insert new</option>
+    </select>
+    <br />
+    <label>Name: </label><input type="text" name="name" class="movieData" /><br />
+    <label>Published: </label><input type="date" name="publishDate" class="movieData" /><br />
+    <label>Cast: </label><input type="text" name="cast" class="movieData" /><br />
+    <label>Origin Country: </label
+    ><input type="text" name="originCountry" class="movieData" /><br />
+
+    <button data-role="insert">Add</button>
+    <button data-role="find">Get info</button>
+    <button data-role="update">Update</button>
+    <button data-role="delete">Delete</button>
+
+    <script src="main.js"></script>
+  </body>
+</html>
