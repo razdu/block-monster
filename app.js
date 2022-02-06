@@ -1,8 +1,8 @@
+require("dotenv").config();
 const express = require("express"),
     app = express(),
     mongoose = require("mongoose"),
     movieRoutes = require("./routes/movieRoute");
-axios = require("axios");
 
 const port = 3000;
 

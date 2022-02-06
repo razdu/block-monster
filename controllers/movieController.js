@@ -66,6 +66,7 @@ const getMoviesByOrigin = () => {
             .catch((err) => reject(err));
     });
 };
+
 module.exports.getAllMovies = getAllMovies;
 module.exports.insertOneMovie = insertOneMovie;
 module.exports.getOneMovie = getOneMovie;
