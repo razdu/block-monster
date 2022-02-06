@@ -1,11 +1,14 @@
 $(function () {
-    $.get("/movies").then((movies) => {
-        populateMoviesSelection(movies);
-        $('[data-role="insert"]').show();
-        $('[data-role="find"]').hide();
-        $('[data-role="update"]').hide();
-        $('[data-role="delete"]').hide();
-    });
+    $.get("/movies")
+        .then((movies) => {
+            populateMoviesSelection(movies);
+            populateMoviesTable(movies);
+            $('[data-role="insert"]').show();
+            $('[data-role="find"]').hide();
+            $('[data-role="update"]').hide();
+            $('[data-role="delete"]').hide();
+        })
+        .catch((e) => console.warn(e));
 
     $("#movies-list").change(() => {
         if ($("#movies-list option:selected").val() !== "Insert new") {
@@ -13,7 +16,7 @@ $(function () {
             $('[data-role="update"]').show();
             $('[data-role="delete"]').show();
             let id = $("#movies-list option:selected").val();
-            $.get(`/movies/${id}`).then((movie) => {
+            $.get(`/movies/byId/${id}`).then((movie) => {
                 fillAllFields(movie);
             });
         } else {
@@ -29,7 +32,12 @@ $(function () {
             $("#movies-list").append($("<option>").val(movie._id).html(movie.name));
         });
     };
-
+    const populateMoviesTable = (movies) => {
+        $("#movies-table").empty();
+        $.each(movies, (_, movie) => {
+            let row = $("#movies-table").append(`<tr value=${movie._id}><td>${movie.name}</td><td>${movie.cast.toString()}</td><td>${movie.publishDate.split("-")[0]}</td><td>${movie.originCountry}</td><td>IMDB</td></tr>`);
+        });
+    };
     const getMovieData = () => {
         return {
             name: $('[name="name"]').val(),
@@ -58,6 +66,10 @@ $(function () {
     $('[data-role="insert"]').click(() => {
         const { name, publishDate, cast, originCountry } = getMovieData();
         $.post("/movies", { name, publishDate, cast, originCountry }, (movie) => emptyFields());
+        $.get("/movies").then((movies) => {
+            populateMoviesSelection(movies);
+            populateMoviesTable(movies);
+        });
     });
 
     $('[data-role="update"]').click(() => {
@@ -67,8 +79,10 @@ $(function () {
             type: "PUT",
             url: `/movies/${id}`,
             data: movieData,
-            success: function (response) {
-                console.log(response);
+            success: () => {
+                $.get("/movies").then((movies) => {
+                    populateMoviesTable(movies);
+                });
             }
         });
     });
@@ -78,16 +92,26 @@ $(function () {
         $.ajax({
             type: "DELETE",
             url: `/movies/${id}`,
-            success: function (response) {
-                console.log(response);
+            success: () => {
+                $.get("/movies").then((movies) => {
+                    populateMoviesTable(movies);
+                });
             }
         });
     });
-
-    /* $('[data-role="find"]').click(() => {
-        let id = $("#movies-list option:selected").val();
-        $.get(`/movies/${id}`).then((movie) => {
-            fillAllFields(movie);
+    $("#movieName").click(() => {
+        $.get("/movies/byName").then((movies) => {
+            populateMoviesTable(movies);
         });
-    }); */
+    });
+    $("#published").click(() => {
+        $.get("/movies/byDate").then((movies) => {
+            populateMoviesTable(movies);
+        });
+    });
+    $("#origin").click(() => {
+        $.get("/movies/byOrigin").then((movies) => {
+            populateMoviesTable(movies);
+        });
+    });
 });

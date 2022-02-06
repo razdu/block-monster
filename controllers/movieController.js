@@ -42,9 +42,35 @@ const deleteMovie = (id) => {
             .catch((err) => reject(err));
     });
 };
-
+const getMoviesByName = () => {
+    return new Promise((resolve, reject) => {
+        Movie.find()
+            .sort("name")
+            .then((movies) => resolve(movies))
+            .catch((err) => reject(err));
+    });
+};
+const getMoviesByDate = () => {
+    return new Promise((resolve, reject) => {
+        Movie.find()
+            .sort("-publishDate")
+            .then((movies) => resolve(movies))
+            .catch((err) => reject(err));
+    });
+};
+const getMoviesByOrigin = () => {
+    return new Promise((resolve, reject) => {
+        Movie.find()
+            .sort("originCountry -publishDate")
+            .then((movies) => resolve(movies))
+            .catch((err) => reject(err));
+    });
+};
 module.exports.getAllMovies = getAllMovies;
 module.exports.insertOneMovie = insertOneMovie;
 module.exports.getOneMovie = getOneMovie;
 module.exports.updateMovie = updateMovie;
 module.exports.deleteMovie = deleteMovie;
+module.exports.getMoviesByName = getMoviesByName;
+module.exports.getMoviesByDate = getMoviesByDate;
+module.exports.getMoviesByOrigin = getMoviesByOrigin;

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { stringify } = require("querystring");
+
 const movieSchema = mongoose.Schema({
     name: {
         type: String,
@@ -10,6 +10,7 @@ const movieSchema = mongoose.Schema({
         required: true
     },
     cast: [],
-    originCountry: { type: String, index: true }
+    originCountry: String
 });
+
 module.exports = mongoose.model("Movie", movieSchema);
